@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import TasksPage from "./components/TasksPage";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="maincontent">
+        <TasksPage tasks={this.props.tasks} />
+      </div>
+    );
+  }
 }
 
-export default App;
+// The state argument is the entire contents of the Redux store,
+// specifically the result of calling getState on the store instance.
+
+function mapStateToProps(state) {
+  return {
+    tasks: state.tasks
+  };
+}
+
+// The return value of mapStateToProps is passed into the App
+// component as props, which is why render can reference
+// this.props.tasks.
+
+export default connect(mapStateToProps)(App);
